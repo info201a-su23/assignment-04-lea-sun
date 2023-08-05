@@ -1,71 +1,166 @@
 ---
-title: "A3: Incarceration"
+title: "A4: Incarceration"
 output: html_document
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(scipen = 999)
+
+# load ALL necessary libraries
+library(tidyverse)
+library(knitr)
+library(maps)
+library(ggplot2)
+
+# load dataset
+prison_pop_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-prison-pop.csv?raw=true"
+prison_pop <- read.csv(prison_pop_url, header = TRUE, stringsAsFactors = FALSE)
+
+jail_pop_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-jail-pop.csv?raw=true"
+jail_pop <- read.csv(jail_pop_url, header = TRUE, stringsAsFactors = FALSE)
+
+pop_per_hundred_thousand_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-prison-jail-rates.csv?raw=true"
+pop_per_hundred_thousand <- read.csv(pop_per_hundred_thousand_url, header = TRUE, stringsAsFactors = FALSE)
+
+per_hundred_thousand_1990_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-prison-jail-rates-1990.csv?raw=true"
+per_hundred_thousand_1990 <- read.csv(per_hundred_thousand_1990_url, header = TRUE, stringsAsFactors = FALSE)
+
+per_hundred_thousand_1990_wa_url <- "https://github.com/melaniewalsh/Neat-Datasets/raw/main/us-prison-jail-rates-1990-WA.csv"
+per_hundred_thousand_1990_wa <- read.csv(per_hundred_thousand_1990_wa_url, header = TRUE, stringsAsFactors = FALSE)
+
+# source all R files; this runs each file from top to bottom, storing all our
+# variables so that we can use them later in this index.Rmd file.
+# HINT: Remember to set your working directory to the folder this file is in!
+source('summary.R')
+source('chart1.R')
+source('chart2.R')
+##source('map.R')
+
+```
 
 ### Introduction
+The problem domain for this assignment is looking at the data collected by the 
+Vera Institute regarding incarceration data from county level jails and prisons.
+By analyzing and visualizing the data collected, we can identify patterns and 
+trends in incarceration, while tying in sociopolitical factors that affect people
+of color. Looking at the data at the county level, rather than a broader state 
+level, can help us gain a better understanding of how and potentially why people 
+of color are incarcerated at a disproportional rate, and make clearer connections 
+and conclusions of causes and consequences.
 
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+The first and second values I will be calculating are the county/states and type 
+of city with the highest and lowest prison population in the most recent
+year. This will provide information about the extremes of incarceration rates and
+possibly help us think about why these certain counties have the highest or 
+lowest prison populations. The third value I will be calculating is how
+incarceration rates have changed for Black individuals in King County based on the
+dataset per 100,000 people of Washington A more local look will also 
+tell us how racial disparities come into play in a state like WA. The fourth and
+fifth values will be the maximum jail population rate for both white and Black
+individuals, showing peak jail populations for each group. This will 
+demonstrate whether the disproportion is significant or not, and help us see the
+differences in incarceration between a race group that is supported by systemic
+and institutional systems, versus one that is constantly being oppressed by them. 
 
 ### Summary Information
-
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as: 
-
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
-
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
+From the dataset of entire prison population per county and state, I found that
+the location with the lowest population from the most recently recorded year is
+**`r lowest_prison_pop_info`**, and the highest population is 
+**`r highest_prison_pop_info`**. From this, we can see that the counties have
+different community types, with the highest coming from an urban city, and the 
+lowest from a rural area. I then calculated change the maximum overall jail 
+population for both white and Black individuals from all the years and counties.
+Both values ended up being from the same location and year, **`r value_4_5_info `**.
+The peak value for Black individuals came up to be **`r max_black_jail_pop`**,  
+while the peak population for white individuals came up **`r max_black_jail_pop`**. 
+To bring things back locally to King County, where some big cities such as
+Seattle and Bellevue are located, I found that the change in incarceration of 
+Black individuals from 1990-2016 to be a decrease of
+**`r incarceration_difference_king_county`**. 
 
 ### The Dataset
 
-Who collected the data?  
-How was the data collected or generated?  
-Why was the data collected?  
-How many observations (rows) are in your data?  
-How many features (columns) are in the data?  
-What, if any, ethical questions or questions of power do you need to consider when working with this data?  
-What are possible limitations or problems with this data?   (at least 200 words)
+**Who collected the data?**
+
+The data is collected by the Vera Institute of Justice, a nonprofit research
+and policy organization in the United States. They are dedicated to transforming
+the justice system and addressing mass incarceration in the country through 
+research.
+
+**How was the data collected or generated?**
+
+The data is separated into jail data and prison data. The jail data is mainly
+collected through the U.S. Department of Justice Bureau of Justice Statistics
+(BJS), along with data from state departments of correction to fill in missing federal data. Specifically, data was pulled from the National Corrections 
+Reporting Program (NCRP), the Jail Populations (DCRP), the Annual Survey of 
+Jails (ASJ), the Census of Jails (COJ), data collected by the 
+U.S. Census Bureau and the Centers for Disease Control and Prevention (CDC),
+and geographic information from the U.S. Department of Agriculture (USDA) and 
+the U.S. Census Bureau
+
+**Why was the data collected?**
+
+The data was collected to provide insight and detail in variables related to
+mass incarceration across prisons and jails in the U.S. The data is supposed
+to help visualize concerning and notable trends and patterns among mass
+incarceration within race groups. In order to address racial disparities in
+the justice system, it's important to recognize and see the disparities as proven
+in data. This will help with developing antiracist solutions and policies to 
+mitigate racial bias in the justice system.
+
+**How many observations (rows) are in your data?**
+
+The jail population data has 153811 rows.
+
+**How many features (columns) are in the data?** 
+
+The jail population data has 28 columns. 
+
+
+**What, if any, ethical questions or questions of power do you need to consider when working with this data?** 
+
+Even though the data comes from reputable government sources, I think we should
+still be wary of human bias in the data. Additionally, though we are trying to
+gain more understanding of incarceration and race in the U.S., we should still
+try to understand the context of the data before working with it. We need to
+question the pre-existing power imbalances and racial biases that has influenced
+the data collected, and recognize that the data will not be 100% accurate, which
+is OK as long as that is acknowledged. 
+
+**What are possible limitations or problems with this data?   (at least 200 words)**
+
+Some possible limitations with the data is that there are a few missing values
+that would help with analyzing the data and drawing connections. I think the 
+completeness of a dataset can help increase reliability and representation.
+Additionally,I wonder how accurate this data is since it comes from systems and 
+structures that have a history of oppressing people of color. Though it may seem unlikely,
+I think it's possible that the numbers may be misrepresented or altered by those
+in charge to paint a different narrative. This would be extremely dangerous and
+harmful when trying to enact meaningful change in the justice system. Some states
+or the government may want to reduce the severity of the issue of racial 
+disparities across prisons and jails, which means they may feel inclined
+to present inaccurate data. Due to all the various confounding variables, I'm 
+also curious as to how these datasets address them and work with them. I think
+a variance in methods of handling confounding variables can also lead to some inconsistent
+data, and I think with data this big and widespread, it's definitely hard to maintain
+consistency. I also noticed that some racial groups, such as Latinx, are extremely
+underreported in the datasets as compared to white or Black groups. 
 
 
 ### Trends Over Time Chart
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+```{r, echo = FALSE, code = readLines("chart1.R")}
 ```
+I chose to create this chart to help visualize how rates of prison population have changed over the years for each racial group. This helps
+us look at the difference in numbers and how some groups have vast differences from others. The chart demonstrates how the smallest rate
+of incarceration is the AAPI group, while the largest is Black individuals.
+The amount that Black individuals surpasses the other racial groups is pretty big, and even the second most does not reach half of the population
+for some years.
 
 ### Variable Comparison Chart
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+```{r, echo = FALSE, code = readLines("chart2.R")}
+```
+For my second chart, I chose to show how total jail population compares to total jail population of individuals between 15 and 64 years old. This shows how ages below and older are less likely to be in jail and how the data is concentrated on ages in between. Because the trend is positive and almost linear, it shows how most of the total jail population is made of 15-64 year old individuals. 
 
 ### Map
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-
+My map shows the quantity of prison populations among Black individuals by county and area. The variability between regions demonstrate how some counties have higher populations, while others have lower ones. Looking at this map can help us identify potential factors as to why these differences exist, such as location, geography, political and economic climate, etc. 
