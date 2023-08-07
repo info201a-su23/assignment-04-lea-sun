@@ -1,6 +1,5 @@
 library(ggplot2)
 
-
 jail_pop_data <- jail_pop %>%
   select(county_name, state, total_pop, total_pop_15to64) %>%
   na.omit()

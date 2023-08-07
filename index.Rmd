@@ -148,7 +148,8 @@ underreported in the datasets as compared to white or Black groups.
 
 
 ### Trends Over Time Chart
-```{r, echo = FALSE, code = readLines("chart1.R")}
+```{r, echo = FALSE}
+source("chart1.R")
 ```
 I chose to create this chart to help visualize how rates of prison population have changed over the years for each racial group. This helps
 us look at the difference in numbers and how some groups have vast differences from others. The chart demonstrates how the smallest rate
@@ -157,7 +158,8 @@ The amount that Black individuals surpasses the other racial groups is pretty bi
 for some years.
 
 ### Variable Comparison Chart
-```{r, echo = FALSE, code = readLines("chart2.R")}
+```{r, echo = FALSE}
+source("chart2.R")
 ```
 For my second chart, I chose to show how total jail population compares to total jail population of individuals between 15 and 64 years old. This shows how ages below and older are less likely to be in jail and how the data is concentrated on ages in between. Because the trend is positive and almost linear, it shows how most of the total jail population is made of 15-64 year old individuals. 
 
