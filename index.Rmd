@@ -12,29 +12,13 @@ library(knitr)
 library(maps)
 library(ggplot2)
 
-# load dataset
-prison_pop_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-prison-pop.csv?raw=true"
-prison_pop <- read.csv(prison_pop_url, header = TRUE, stringsAsFactors = FALSE)
-
-jail_pop_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-jail-pop.csv?raw=true"
-jail_pop <- read.csv(jail_pop_url, header = TRUE, stringsAsFactors = FALSE)
-
-pop_per_hundred_thousand_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-prison-jail-rates.csv?raw=true"
-pop_per_hundred_thousand <- read.csv(pop_per_hundred_thousand_url, header = TRUE, stringsAsFactors = FALSE)
-
-per_hundred_thousand_1990_url <- "https://github.com/melaniewalsh/Neat-Datasets/blob/main/us-prison-jail-rates-1990.csv?raw=true"
-per_hundred_thousand_1990 <- read.csv(per_hundred_thousand_1990_url, header = TRUE, stringsAsFactors = FALSE)
-
-per_hundred_thousand_1990_wa_url <- "https://github.com/melaniewalsh/Neat-Datasets/raw/main/us-prison-jail-rates-1990-WA.csv"
-per_hundred_thousand_1990_wa <- read.csv(per_hundred_thousand_1990_wa_url, header = TRUE, stringsAsFactors = FALSE)
-
 # source all R files; this runs each file from top to bottom, storing all our
 # variables so that we can use them later in this index.Rmd file.
 # HINT: Remember to set your working directory to the folder this file is in!
 source('summary.R')
 source('chart1.R')
 source('chart2.R')
-##source('map.R')
+source('map.R')
 
 ```
 
@@ -152,19 +136,19 @@ underreported in the datasets as compared to white or Black groups.
 chart1
 ```
 
-I chose to create this chart to help visualize how rates of prison population have changed over the years for each racial group. This helps
-us look at the difference in numbers and how some groups have vast differences from others. The chart demonstrates how the smallest rate
-of incarceration is the AAPI group, while the largest is Black individuals.
-The amount that Black individuals surpasses the other racial groups is pretty big, and even the second most does not reach half of the population
-for some years.
+For first chart, I chose to visualize how prison populations per hundred thousand have changed over the years for each racial group. This helps us look at the difference in numbers and how some groups have significant differences from others. The chart demonstrates how the smallest rate of incarceration belongs to the White racial group, while the largest is Black. The chart illustrates how there is a huge gap between Black and the other racial groups. At the peak, the prison population of Black individuals reached above 7,000, while the other racial groups fall below 2,000 and peak white population rate being at around 500. This difference is very concerning, and while there has been a downward trend in the last two decades for Black population rates, racial disparities are still clearly and significantly present. 
 
 ### Variable Comparison Chart
 ```{r, echo = FALSE}
 chart2
 ```
 
-For my second chart, I chose to show how total jail population compares to total jail population of individuals between 15 and 64 years old. This shows how ages below and older are less likely to be in jail and how the data is concentrated on ages in between. Because the trend is positive and linear, it shows how most of the total jail population is made of 15-64 year old individuals, providing insight on how age maybe also play a role in the likelihood of being in jail.
+For my second chart, I chose to look at the relationship between time and Black jail population rate by hundred thousand in King County, WA from 1990-2018 (beginning to end of dataset, excluding the years where there was no data). I chose this because King County covers a vast amount of area in WA and has some big cities, so I thought this would be a meaningful relationship to visualize, especially since this is happening right around us. By looking at this chart, I can see that there has been a negative, moderately strong relationship between the years and Black jail rate in King County. As the years go on,
+the population rate dropped from almost 1,500 to just above 800. I thought that this was an interesting thing to see as I did expect it to have a strong, positive relationship and that population rates have gone up. This was surprising and I think it demonstrates potential progress in racial profiling and racism in the jail system. 
 
 ### Map
+```{r, echo = FALSE, fig.width=12}
+map_black_2018
+```
 
-My map shows the quantity of prison populations among Black individuals by county and area. The variability between regions demonstrate how some counties have higher populations, while others have lower ones. Looking at this map can help us identify potential factors as to why these differences exist, such as location, geography, political and economic climate, etc. 
+My map shows the variation across states of median jail population rate of Black individuals, pulled specifically from 2018. I chose 2018 because it was the most recent year in the dataset, and I feel that it is most timely as it is closest to 2023. I chose calculating the median of each state to measure the central tendency of Black jail population rates, and I did not choose calculating the mean as the data had more extremes where some counties in certain states had a population of zero, while others had much higher numbers that seemed to be outliers. From my map, I can see that Utah and Kentucky have the highest medians, which means that taking in account all the countries of each state, they overall had a higher Black jail population rate. It also looks like Oregon is one of the lowest, illustrated by its light state color. It does seem that the midwest, South, and East Coast have higher rates, aside from Utah. Seeing this visualization can help generate possibilites for why certain states have higher or lower rates, such as Black population, difference in policies/laws, etc.  
